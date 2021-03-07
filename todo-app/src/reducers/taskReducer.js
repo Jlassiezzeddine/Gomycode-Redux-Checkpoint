@@ -1,6 +1,6 @@
-import { uuid } from "uuid/dist/v4";
+import uuid from "react-uuid";
 const taskReducer = (taskList = [], action) => {
-  switch (action) {
+  switch (action.type) {
     case "ADDNEWTASK":
       return [
         ...taskList,
