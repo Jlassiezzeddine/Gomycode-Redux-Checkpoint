@@ -1,17 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router } from "react-router-dom";
-import "bulma/bulma.sass";
-import "@fortawesome/fontawesome-free/js/all";
 import "./index.css";
+import "bulma/css/bulma.css";
+import "@fortawesome/fontawesome-free/js/all";
 import App from "./App";
+import { BrowserRouter as Router } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import rootReducer from "./reducers";
 
+const store = createStore(
+  rootReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <App />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

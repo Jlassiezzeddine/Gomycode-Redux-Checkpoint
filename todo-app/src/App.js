@@ -1,53 +1,21 @@
-import React, { useState } from "react";
-import { Switch, Route } from "react-router-dom";
-import uuid from "uuid/dist/v4";
+import { Route, Switch } from "react-router";
 import "./App.css";
-import HomePage from "./HomePage/HomePage";
-import CompleteTasks from "./CompleteTasks/CompleteTasks";
-import IncompleteTasks from "./IncompleteTasks/IncompleteTasks";
-import Navigation from "./Navigation/Navigation";
-
+import ListTask from "./components/ListTask/ListTask";
+import Navigation from "./components/Navigation/Navigation";
+import CompletedTasks from "./components/CompletedTasks/CompletedTasks";
+import IncompleteTaks from "./components/IncompleteTasks/IncompleteTasks";
+import AddTask from "./components/AddTask/AddTask";
 function App() {
-  let tasks = [];
-  const [taskList, setTaskList] = useState(tasks);
-  const [toggleAddModal, setToggleAddModal] = useState(false);
-
-  const addModalDisplay = () => {
-    setToggleAddModal(!toggleAddModal);
-  };
-
-  const addTask = (title, content, date) => {
-    setTaskList([
-      ...taskList,
-      { id: uuid(), title, content, date, isComplete: false },
-    ]);
-  };
-  const removetask = (toRemoveTask) => {
-    setTaskList(taskList.filter((task) => task.id !== toRemoveTask.id));
-  };
   return (
-    <React.Fragment>
-      <Navigation
-        addTask={addTask}
-        addModalDisplay={addModalDisplay}
-        toggleAddModal={toggleAddModal}
-        taskList={taskList}
-      />
+    <>
+      <Navigation />
+      <AddTask />
       <Switch>
-        <Route
-          exact
-          path="/"
-          render={(props) => (
-            <HomePage tasks={taskList} removetask={removetask} {...props} />
-          )}
-        />
-        <Route
-          path="/completed"
-          render={(props) => <CompleteTasks {...props} />}
-        />
-        <Route path="/incomplete" component={IncompleteTasks} />
+        <Route exact path="/" component={ListTask} />
+        <Route path="/completed" component={CompletedTasks} />
+        <Route path="/incomplete" component={IncompleteTaks} />
       </Switch>
-    </React.Fragment>
+    </>
   );
 }
 
