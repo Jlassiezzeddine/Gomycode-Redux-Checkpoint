@@ -3,7 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleTaskPopUp } from "../../actions";
 const AddTask = () => {
   const toggleModal = useSelector((state) => state.addTaskToggle);
+
   const dispatch = useDispatch();
+
+  const handleChange = () => {};
   return (
     <div className={`modal ${toggleModal && "is-active"}`}>
       <div
