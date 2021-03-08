@@ -1,6 +1,6 @@
 const addTaskModalReducer = (toggle = false, action) => {
   switch (action.type) {
-    case "TOGGLETASKPOPUP":
+    case "TOGGLEADDTASKPOPUP":
       return !toggle;
     default:
       return toggle;

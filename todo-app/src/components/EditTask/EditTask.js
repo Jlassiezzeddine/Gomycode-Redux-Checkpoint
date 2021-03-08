@@ -1,14 +1,16 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { toggleAddTaskPopUp, addNewTask } from "../../actions";
+import { toggleEditTaskPopUp, editTask } from "../../actions";
 import useTaskValidation from "../../taskFormValidation/useTaskValidation";
 import validate from "../../taskFormValidation/validateInfo";
-const AddTask = () => {
+const EditTask = ({ toEditTask }) => {
   const dispatch = useDispatch();
 
   const submitForm = () => {
-    dispatch(toggleAddTaskPopUp());
-    dispatch(addNewTask(values.title, values.content, values.date));
+    dispatch(toggleEditTaskPopUp());
+    dispatch(
+      editTask(toEditTask.id, values.title, values.content, values.date)
+    );
   };
 
   const { handleChange, values, handleSubmit, errors } = useTaskValidation(
@@ -19,15 +21,15 @@ const AddTask = () => {
     <div className="modal is-active">
       <div
         className="modal-background"
-        onClick={() => dispatch(toggleAddTaskPopUp())}
+        onClick={() => dispatch(toggleEditTaskPopUp())}
       ></div>
       <div className="modal-card">
         <header className="modal-card-head">
-          <p className="modal-card-title">Create new task</p>
+          <p className="modal-card-title">Edit task</p>
           <button
             className="delete"
             aria-label="close"
-            onClick={() => dispatch(toggleAddTaskPopUp())}
+            onClick={() => dispatch(toggleEditTaskPopUp())}
           ></button>
         </header>
         <section className="modal-card-body">
@@ -98,7 +100,7 @@ const AddTask = () => {
           </button>
           <button
             className="button is-pulled-right"
-            onClick={() => dispatch(toggleAddTaskPopUp())}
+            onClick={() => dispatch(toggleEditTaskPopUp())}
           >
             Cancel
           </button>
@@ -107,4 +109,5 @@ const AddTask = () => {
     </div>
   );
 };
-export default AddTask;
+
+export default EditTask;

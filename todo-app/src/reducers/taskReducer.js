@@ -12,6 +12,14 @@ const taskReducer = (taskList = [], action) => {
           isDone: false,
         },
       ];
+    case "DELETETASK":
+      return taskList.filter((task) => task.id !== action.payload.taskId);
+    case "EDITTASK":
+      let toEditTask = taskList.find((task) => task.id === action.payload.id);
+      toEditTask.title = action.payload.title;
+      toEditTask.content = action.payload.content;
+      toEditTask.date = action.payload.date;
+      return taskList;
     default:
       return taskList;
   }

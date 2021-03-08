@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleTaskPopUp } from "../../actions";
+import { toggleAddTaskPopUp } from "../../actions";
 import AddTask from "../AddTask/AddTask";
 
 const Navigation = () => {
@@ -33,7 +33,7 @@ const Navigation = () => {
     day,
   };
 
-  const toggleModal = useSelector((state) => state.addTaskToggle);
+  const toggleAddModal = useSelector((state) => state.addTaskToggle);
   const dispatch = useDispatch();
   return (
     <React.Fragment>
@@ -112,14 +112,14 @@ const Navigation = () => {
           <div className="navbar-item">
             <button
               className="button is-primary"
-              onClick={() => dispatch(toggleTaskPopUp())}
+              onClick={() => dispatch(toggleAddTaskPopUp())}
             >
               <i className="fa fa-plus fa-xs mr-2"></i>Create
             </button>
           </div>
         </div>
       </div>
-      {toggleModal && <AddTask />}
+      {toggleAddModal && <AddTask />}
     </React.Fragment>
   );
 };
