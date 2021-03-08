@@ -1,3 +1,14 @@
 .card-footer-item > * {
   cursor: pointer;
 }
+.card-header {
+  position: relative;
+  .badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+  }
+}
+.card {
+  min-height: 90px;
+}

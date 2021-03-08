@@ -7,12 +7,17 @@ import "./ListTask.scss";
 const ListTask = () => {
   const taskList = useSelector((state) => state.taskList);
   const toggleEditModal = useSelector((state) => state.editTaskToggle);
+  const toggleFilter = useSelector((state) => state.toggleFilter);
   const [toEditTask, setToEditTask] = useState({});
   return (
     <React.Fragment>
       <div className="section has-background-grey-dark tasks-list-wrapper">
         <div className="  container is-fluid">
-          <div className="block ">
+          <div
+            className={`block task-list-wrapper ${
+              toggleFilter ? "translate" : ""
+            }`}
+          >
             <div className="columns is-multiline">
               {taskList.map((task) => (
                 <Task key={task.id} task={task} setToEditTask={setToEditTask} />

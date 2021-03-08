@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { toggleEditTaskPopUp, editTask } from "../../actions";
-import useTaskValidation from "../../taskFormValidation/useTaskValidation";
+import useEditTaskValidation from "../../taskFormValidation/useEditTaskValidation";
 import validate from "../../taskFormValidation/validateInfo";
 const EditTask = ({ toEditTask }) => {
   const dispatch = useDispatch();
@@ -9,14 +9,21 @@ const EditTask = ({ toEditTask }) => {
   const submitForm = () => {
     dispatch(toggleEditTaskPopUp());
     dispatch(
-      editTask(toEditTask.id, values.title, values.content, values.date)
+      editTask(
+        toEditTask.id,
+        editValues.title,
+        editValues.content,
+        editValues.date
+      )
     );
   };
 
-  const { handleChange, values, handleSubmit, errors } = useTaskValidation(
-    submitForm,
-    validate
-  );
+  const {
+    handleChange,
+    editValues,
+    handleSubmit,
+    errors,
+  } = useEditTaskValidation({ ...toEditTask }, submitForm, validate);
   return (
     <div className="modal is-active">
       <div
@@ -42,7 +49,7 @@ const EditTask = ({ toEditTask }) => {
                   type="text"
                   placeholder="Text input"
                   name="title"
-                  value={values.title}
+                  value={editValues.title}
                   onChange={handleChange}
                 />
                 {errors.title && (
@@ -60,7 +67,7 @@ const EditTask = ({ toEditTask }) => {
                   className={`textarea ${errors.content && "is-danger"}`}
                   placeholder="e.g. Do chores"
                   name="content"
-                  value={values.content}
+                  value={editValues.content}
                   onChange={handleChange}
                 ></textarea>
                 {errors.content && (
@@ -81,7 +88,7 @@ const EditTask = ({ toEditTask }) => {
                   className={`input ${errors.date && "is-danger"}`}
                   name="date"
                   id="date"
-                  value={values.date}
+                  value={editValues.date}
                   onChange={handleChange}
                 />
                 {errors.date && (

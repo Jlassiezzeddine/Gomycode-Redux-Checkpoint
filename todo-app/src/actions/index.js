@@ -4,6 +4,14 @@ export const toggleAddTaskPopUp = () => {
 export const toggleEditTaskPopUp = () => {
   return { type: "TOGGLEEDITTASKPOPUP" };
 };
+export const toggleFilterMenu = () => {
+  return { type: "TOGGLEFILTER" };
+};
+
+export const toggleIsDone = (taskId) => {
+  return { type: "TOGGLEISDONE", payload: { taskId } };
+};
+
 export const addNewTask = (title, content, date) => {
   return { type: "ADDNEWTASK", payload: { title, content, date } };
 };
@@ -12,12 +20,4 @@ export const deleteTask = (taskId) => {
 };
 export const editTask = (id, title, content, date) => {
   return { type: "EDITTASK", payload: { id, title, content, date } };
-};
-
-export const isCompleteTask = (id) => {
-  return { type: "ISCOMPLETETASK", payload: id };
-};
-
-export const isIncompleteTask = (id) => {
-  return { type: "ISINCOMPLETETASK", payload: id };
 };

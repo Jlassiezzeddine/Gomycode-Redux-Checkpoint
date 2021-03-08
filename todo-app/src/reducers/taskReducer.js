@@ -1,5 +1,18 @@
 import uuid from "react-uuid";
-const taskReducer = (taskList = [], action) => {
+
+const taskReducer = (
+  taskList = [
+    {
+      id: "1",
+      title: "Do Redux Checkpoint",
+      content:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro doloremque ipsa ipsum quos, obcaecati dolor!",
+      date: "2021-03-12",
+      isDone: true,
+    },
+  ],
+  action
+) => {
   switch (action.type) {
     case "ADDNEWTASK":
       return [
@@ -19,6 +32,13 @@ const taskReducer = (taskList = [], action) => {
       toEditTask.title = action.payload.title;
       toEditTask.content = action.payload.content;
       toEditTask.date = action.payload.date;
+      return taskList;
+    case "TOGGLEISDONE":
+      let toClassifyTask = taskList.find(
+        (task) => task.id === action.payload.taskId
+      );
+      toClassifyTask.isDone = !toClassifyTask.isDone;
+      console.log(toClassifyTask);
       return taskList;
     default:
       return taskList;

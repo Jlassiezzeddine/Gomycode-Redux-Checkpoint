@@ -1,18 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Task.scss";
 import { useDispatch } from "react-redux";
-import { deleteTask, toggleEditTaskPopUp } from "../../actions";
+import { deleteTask, toggleEditTaskPopUp, toggleIsDone } from "../../actions";
 
 const Task = ({ task, setToEditTask }) => {
+  const [toggleDoneBadge, setToggleDoneBadge] = useState(task.isDone);
   const dispatch = useDispatch();
   const handleEdit = () => {
     dispatch(toggleEditTaskPopUp());
     setToEditTask({ ...task });
   };
+  const handleDone = () => {
+    dispatch(toggleIsDone(task.id));
+    setToggleDoneBadge(!toggleDoneBadge);
+  };
   return (
     <div className="column is-one-quarter ">
       <div className="card">
         <header className="card-header">
+          {task.isDone ? (
+            <span className="badge tag is-success">Done</span>
+          ) : (
+            <span className="badge tag is-danger">Not Done</span>
+          )}
           <h2 className="card-header-title">{task.title}</h2>
         </header>
         <div className="card-content">
@@ -24,9 +34,15 @@ const Task = ({ task, setToEditTask }) => {
           </div>
         </div>
         <footer className="card-footer">
-          <div className="card-footer-item">
-            <i className="fa fa-check"></i>
-          </div>
+          {task.isDone ? (
+            <div className="card-footer-item" onClick={handleDone}>
+              <i className="fa fa-check"></i>
+            </div>
+          ) : (
+            <div className="card-footer-item" onClick={handleDone}>
+              <i className="fa fa-times"></i>
+            </div>
+          )}
           <div className="card-footer-item" onClick={handleEdit}>
             <i className="fa fa-edit"></i>
           </div>
