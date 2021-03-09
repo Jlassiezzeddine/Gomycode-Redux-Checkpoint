@@ -36,7 +36,7 @@ const Task = ({ task, setToEditTask }) => {
         </div>
         <footer className="card-footer">
           <div className="card-footer-item" onClick={handleDone}>
-            <i className="fa fa-check" />
+            <i className={`fa ${!task.isDone ? "fa-check" : "fa-times"}`}></i>
           </div>
 
           <div className="card-footer-item" onClick={handleEdit}>

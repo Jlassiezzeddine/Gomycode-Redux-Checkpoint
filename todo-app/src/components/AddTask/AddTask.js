@@ -92,7 +92,7 @@ const AddTask = () => {
             </div>
           </form>
         </section>
-        <footer className="modal-card-foot ">
+        <footer className="modal-card-foot">
           <button className="button is-success " onClick={() => handleSubmit()}>
             Save
           </button>

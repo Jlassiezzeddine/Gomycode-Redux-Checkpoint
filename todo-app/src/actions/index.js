@@ -12,11 +12,15 @@ export const toggleIsDone = (taskId) => {
   return { type: "TOGGLEISDONE", payload: { taskId } };
 };
 // ************** FILTERS ***************************
-export const filterByIsDone = (taskIsDone) => {
-  return { type: "FILTERBYISDONE", payload: { taskIsDone } };
+export const filterByIsDone = (str) => {
+  return { type: "FILTERBYISDONE", payload: { str } };
 };
-export const filterByDate = (taskDate) => {
-  return { type: "FILTERBYDATE", payload: { taskDate } };
+export const filterByDate = (date) => {
+  return { type: "FILTERBYDATE", payload: { date } };
+};
+
+export const filterByTerm = (term) => {
+  return { type: "FILTERBYTERM", payload: { term } };
 };
 
 // ************ TASK MANIPULATION ********************

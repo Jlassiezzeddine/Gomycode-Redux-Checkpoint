@@ -1,6 +1,12 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleAddTaskPopUp, toggleFilterMenu } from "../../actions";
+import {
+  toggleAddTaskPopUp,
+  toggleFilterMenu,
+  filterByIsDone,
+  filterByDate,
+  filterByTerm,
+} from "../../actions";
 import AddTask from "../AddTask/AddTask";
 
 import "./Navigation.scss";
@@ -36,7 +42,7 @@ const Navigation = () => {
 
   const toggleAddModal = useSelector((state) => state.addTaskToggle);
   const toggleFilter = useSelector((state) => state.toggleFilter);
-  const taskList = useSelector((state) => state.taskList);
+  const taskList = useSelector((state) => state.taskList.taskList);
   const dispatch = useDispatch();
   return (
     <React.Fragment>
@@ -62,6 +68,9 @@ const Navigation = () => {
                     type="text"
                     className="input  is-dark"
                     placeholder="Search for a task"
+                    onChange={(e) => {
+                      dispatch(filterByTerm(e.target.value));
+                    }}
                   />
                   <span className="icon  is-left ">
                     <i className="fas fa-search fa-1x"></i>
@@ -99,11 +108,30 @@ const Navigation = () => {
             <li className="navbar-item">
               <div className="control">
                 <label className="radio ">
-                  <input type="radio" name="isComplete" value="false" />{" "}
+                  <input
+                    type="radio"
+                    name="isComplete"
+                    value="all"
+                    onChange={(e) => dispatch(filterByIsDone(e.target.value))}
+                  />{" "}
+                  All
+                </label>
+                <label className="radio ">
+                  <input
+                    type="radio"
+                    name="isComplete"
+                    value="complete"
+                    onChange={(e) => dispatch(filterByIsDone(e.target.value))}
+                  />{" "}
                   Completed
                 </label>
                 <label className="radio ">
-                  <input type="radio" name="isComplete" value="true" />{" "}
+                  <input
+                    type="radio"
+                    name="isComplete"
+                    value="notComplete"
+                    onChange={(e) => dispatch(filterByIsDone(e.target.value))}
+                  />{" "}
                   Incomplete
                 </label>
               </div>
@@ -114,8 +142,9 @@ const Navigation = () => {
                 <select
                   name="dueDate"
                   id="dueDate"
-                  defaultValue="Select a Date"
+                  onChange={(e) => dispatch(filterByDate(e.target.value))}
                 >
+                  <option value="all">--- All Dates ---</option>
                   {taskList.map((task) => (
                     <option key={task.title}>{task.date}</option>
                   ))}

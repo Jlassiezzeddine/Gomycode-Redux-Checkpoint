@@ -1,7 +1,6 @@
 import uuid from "react-uuid";
-
-const taskReducer = (
-  taskList = [
+const initState = {
+  taskList: [
     {
       id: "1",
       title: "Do Redux Checkpoint",
@@ -11,48 +10,60 @@ const taskReducer = (
       isDone: true,
     },
   ],
-  action
-) => {
+  filterComplete: "all",
+  filterDate: "all",
+  filterTerm: "",
+};
+const taskReducer = (state = initState, action) => {
   switch (action.type) {
     case "ADDNEWTASK":
-      return [
-        ...taskList,
-        {
-          id: uuid(),
-          title: action.payload.title,
-          content: action.payload.content,
-          date: action.payload.date,
-          isDone: false,
-        },
-      ];
+      return {
+        ...state,
+        taskList: [
+          ...state.taskList,
+          {
+            id: uuid(),
+            title: action.payload.title,
+            content: action.payload.content,
+            date: action.payload.date,
+            isDone: false,
+          },
+        ],
+      };
     case "DELETETASK":
-      return [...taskList].filter((task) => task.id !== action.payload.taskId);
+      return {
+        ...state,
+        taskList: state.taskList.filter(
+          (task) => task.id !== action.payload.taskId
+        ),
+      };
     case "EDITTASK":
-      let toEditTask = [...taskList].find(
-        (task) => task.id === action.payload.id
-      );
-      toEditTask.title = action.payload.title;
-      toEditTask.content = action.payload.content;
-      toEditTask.date = action.payload.date;
-      return [...taskList];
+      return {
+        ...state,
+        taskList: state.taskList.map((task) =>
+          task.id === action.payload.id
+            ? { ...action.payload, isDone: false }
+            : task
+        ),
+      };
     case "TOGGLEISDONE":
-      let toClassifyTask = [...taskList].find(
-        (task) => task.id === action.payload.taskId
-      );
-      toClassifyTask.isDone = !toClassifyTask.isDone;
-      console.log(toClassifyTask);
-      return [...taskList];
-    case "FILTERBYISDONE":
-      return action.payload
-        ? [...taskList].filter((task) => task.isDone === action.payload.isDone)
-        : [...taskList].filter((task) => task.isDone === action.payload.isDone);
+      return {
+        ...state,
+        taskList: state.taskList.map((task) =>
+          task.id === action.payload.taskId
+            ? { ...task, isDone: !task.isDone }
+            : task
+        ),
+      };
 
+    case "FILTERBYISDONE":
+      return { ...state, filterComplete: action.payload.str };
     case "FILTERBYDATE":
-      return [...taskList].filter(
-        (task) => task.date === action.payload.taskDate
-      );
+      return { ...state, filterDate: action.payload.date };
+    case "FILTERBYTERM":
+      return { ...state, filterTerm: action.payload.term };
     default:
-      return taskList;
+      return state;
   }
 };
 export default taskReducer;
