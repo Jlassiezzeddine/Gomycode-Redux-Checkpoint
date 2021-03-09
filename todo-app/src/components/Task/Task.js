@@ -14,6 +14,7 @@ const Task = ({ task, setToEditTask }) => {
     dispatch(toggleIsDone(task.id));
     setToggleDoneBadge(!toggleDoneBadge);
   };
+
   return (
     <div className="column is-one-quarter ">
       <div className="card">
@@ -34,15 +35,10 @@ const Task = ({ task, setToEditTask }) => {
           </div>
         </div>
         <footer className="card-footer">
-          {task.isDone ? (
-            <div className="card-footer-item" onClick={handleDone}>
-              <i className="fa fa-check"></i>
-            </div>
-          ) : (
-            <div className="card-footer-item" onClick={handleDone}>
-              <i className="fa fa-times"></i>
-            </div>
-          )}
+          <div className="card-footer-item" onClick={handleDone}>
+            <i className="fa fa-check" />
+          </div>
+
           <div className="card-footer-item" onClick={handleEdit}>
             <i className="fa fa-edit"></i>
           </div>

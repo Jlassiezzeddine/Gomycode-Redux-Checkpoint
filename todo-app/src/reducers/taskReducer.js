@@ -26,20 +26,31 @@ const taskReducer = (
         },
       ];
     case "DELETETASK":
-      return taskList.filter((task) => task.id !== action.payload.taskId);
+      return [...taskList].filter((task) => task.id !== action.payload.taskId);
     case "EDITTASK":
-      let toEditTask = taskList.find((task) => task.id === action.payload.id);
+      let toEditTask = [...taskList].find(
+        (task) => task.id === action.payload.id
+      );
       toEditTask.title = action.payload.title;
       toEditTask.content = action.payload.content;
       toEditTask.date = action.payload.date;
-      return taskList;
+      return [...taskList];
     case "TOGGLEISDONE":
-      let toClassifyTask = taskList.find(
+      let toClassifyTask = [...taskList].find(
         (task) => task.id === action.payload.taskId
       );
       toClassifyTask.isDone = !toClassifyTask.isDone;
       console.log(toClassifyTask);
-      return taskList;
+      return [...taskList];
+    case "FILTERBYISDONE":
+      return action.payload
+        ? [...taskList].filter((task) => task.isDone === action.payload.isDone)
+        : [...taskList].filter((task) => task.isDone === action.payload.isDone);
+
+    case "FILTERBYDATE":
+      return [...taskList].filter(
+        (task) => task.date === action.payload.taskDate
+      );
     default:
       return taskList;
   }

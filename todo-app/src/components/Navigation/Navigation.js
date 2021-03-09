@@ -72,7 +72,9 @@ const Navigation = () => {
             <div className="navbar-item">
               <button
                 className="button is-info "
-                onClick={() => dispatch(toggleFilterMenu())}
+                onClick={() => {
+                  dispatch(toggleFilterMenu());
+                }}
               >
                 <i className="fa fa-sliders-h"></i>
               </button>
@@ -97,10 +99,12 @@ const Navigation = () => {
             <li className="navbar-item">
               <div className="control">
                 <label className="radio ">
-                  <input type="radio" name="isComplete" /> Completed
+                  <input type="radio" name="isComplete" value="false" />{" "}
+                  Completed
                 </label>
                 <label className="radio ">
-                  <input type="radio" name="isComplete" /> Incomplete
+                  <input type="radio" name="isComplete" value="true" />{" "}
+                  Incomplete
                 </label>
               </div>
             </li>

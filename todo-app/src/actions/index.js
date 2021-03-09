@@ -1,3 +1,4 @@
+// ************* TOGGLES ***************************
 export const toggleAddTaskPopUp = () => {
   return { type: "TOGGLEADDTASKPOPUP" };
 };
@@ -7,11 +8,18 @@ export const toggleEditTaskPopUp = () => {
 export const toggleFilterMenu = () => {
   return { type: "TOGGLEFILTER" };
 };
-
 export const toggleIsDone = (taskId) => {
   return { type: "TOGGLEISDONE", payload: { taskId } };
 };
+// ************** FILTERS ***************************
+export const filterByIsDone = (taskIsDone) => {
+  return { type: "FILTERBYISDONE", payload: { taskIsDone } };
+};
+export const filterByDate = (taskDate) => {
+  return { type: "FILTERBYDATE", payload: { taskDate } };
+};
 
+// ************ TASK MANIPULATION ********************
 export const addNewTask = (title, content, date) => {
   return { type: "ADDNEWTASK", payload: { title, content, date } };
 };
